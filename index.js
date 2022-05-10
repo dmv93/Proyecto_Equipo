@@ -2,17 +2,12 @@
 // var nombre = document.getElementById("nombre")
 // var nombre1 = nombre.value;
 
-
-
-
-
-
 function enviar() {
     var nombre = document.getElementById("nombre").value
     var primeApellido = document.getElementById("primerApellido").value
     var segundoApellido = document.getElementById("segundoApellido").value
     var dni = document.getElementById("dni").value
-    // var direccion = document.getElementById("direccion").value
+    var direccion = document.getElementById("direccion").value
     // var codigoPostal = document.getElementById("postal").value
     // var poblacion = document.getElementById("poblacion").value
     // var pais = document.getElementById("pais").value
@@ -20,8 +15,8 @@ function enviar() {
 
     var confimirEmail = document.getElementById("confirmEmail").value
 
-    // var intereses = document.getElementById("Intereses").value
-    // var password = document.getElementById("password").value
+    var intereses = document.getElementById("intereses").value
+    var password = document.getElementById("password").value
     let n2 = 0;
     //if (charCode > 32 && (charCode < 65 || charCode > 90) && (charCode < 97 || charCode > 122)) {  PARA ENCONTRAR EN ASCII EL NOMBRE
 
@@ -88,9 +83,8 @@ function enviar() {
     }
 
     //email
-    let n1 = 0;
-    let regex = /^[^ ]+@[^ ]+\.[a-z]{2,3}$/;
-    let validEmail = regex.test(email)
+    let regeX = /^[^ ]+@[^ ]+\.[a-z]{2,3}$/;
+    let validEmail = regeX.test(email)
 
     if (!validEmail) {
         salidaemail = document.getElementById("parrafoEmail").innerHTML = "email  incorrecto"
@@ -111,12 +105,68 @@ function enviar() {
 
 
     // h. Password: Mínimo 8 caracteres y máximo 20, debe contener al menos una mayúscula, al menos una minúscula, al menos dos números y al menos un símbolo. Se trata de un campo obligatorio.
+    var v1 = 0
+    var v2 = 0
+    var v3 = 0
+    var v4 = 0
 
-    if (password.length > 8 && password <= 20 && password == "/[A-Z]/g") {
+    if (password.length >= 8 && password.length <= 20) {
+        for (let i = 0; i < password.length; i++) {
+            if (password[i].charCodeAt() >= 'A'.charCodeAt() && password[i].charCodeAt() <= 'Z'.charCodeAt()) {
+                v1 += 1;
+            }
+
+            if (password[i].charCodeAt() >= 'a'.charCodeAt() && password[i].charCodeAt() <= 'z'.charCodeAt()) {
+                v2 += 1;
+            }
+
+            if (password[i].charCodeAt() >= '0'.charCodeAt() && password[i].charCodeAt() <= '9'.charCodeAt()) {
+                v3 += 1;
+            }
+            if (password[i].charCodeAt() >= '!'.charCodeAt() && password[i].charCodeAt() <= '@'.charCodeAt()) {
+                v4 += 1;
+            }
+
+            console.log('ver v1' + v1)
+            console.log('ver v2' + v2)
+            console.log('ver v3' + v3)
+            console.log('ver v4' + v4)
+        }
+        if (v1 > 0 && v2 > 0 && v3 > 1 && v4 > 0) {
+            console.log("todo guay")
+        } else {
+            passwordText = document.getElementById("parrafoPassword").innerHTML = "La contraseña debe de tener al menos mayuscula, minuscula, dos números y un símbolo" + password
+
+        }
 
     } else {
-        alert('Error')
+        salidacomprobarpassword = document.getElementById("parrafoPassword").innerHTML = "contraseña incorrecta"
     }
+
+    //DIRECCION
+
+
+    //INTERESES
+    inter();
+    function inter() {
+        const mercado = "mercado inmobiliario"
+        const bolsa = "bolsa"
+        const bienes = "bienes estatales"
+        const coma = ","
+        let todos = [mercado, coma, bolsa, coma, bienes]
+        if (intereses == bolsa, coma, mercado, coma, bienes || bolsa, coma, bienes, coma, mercado || bienes, coma, bolsa, coma, mercado || bienes, coma, mercado, coma, bolsa || mercado, coma, bolsa, coma, bienes) {
+            console.log("todo good")
+        } else if (intereses == (mercado + coma + bolsa || mercado + coma + bienes || bolsa + coma + bienes || bolsa + coma + mercado)) {
+            console.log("Hay al menos 2 xaxis")
+        } else if (intereses == (mercado || bolsa || bienes)) {
+            console.log("Solo han puessto")
+        } else {
+            salidaComprobacionIntereses = document.getElementById("parrafoIntereses").innerHTML = "Error al introducir, debe exisitr"
+            inter()
+        }
+
+    }
+
 
 
 }
