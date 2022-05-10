@@ -8,20 +8,13 @@ function enviar() {
     var segundoApellido = document.getElementById("segundoApellido").value
     var dni = document.getElementById("dni").value
     var direccion = document.getElementById("direccion").value
-    // var codigoPostal = document.getElementById("postal").value
-    // var poblacion = document.getElementById("poblacion").value
-    // var pais = document.getElementById("pais").value
     var email = document.getElementById("email").value
-
     var confimirEmail = document.getElementById("confirmEmail").value
-
     var intereses = document.getElementById("intereses").value
     var password = document.getElementById("password").value
     let n2 = 0;
-    //if (charCode > 32 && (charCode < 65 || charCode > 90) && (charCode < 97 || charCode > 122)) {  PARA ENCONTRAR EN ASCII EL NOMBRE
 
-
-    //nombre
+    //COMPROBACION DEL NOMBRE
     for (let j = 1; j < nombre.length; j++) {
         if (nombre[j].charCodeAt() < 'a'.charCodeAt() || nombre[j].charCodeAt() > 'z'.charCodeAt()) {
             n2 += 1;
@@ -35,7 +28,7 @@ function enviar() {
 
 
     }
-    //primer apellido
+    //COMPROBACION DEL PRIMER APELLIDO
     let n3 = 0
     for (let j = 1; j < primeApellido.length; j++) {
         if (primeApellido[j].charCodeAt() < 'a'.charCodeAt() || primeApellido[j].charCodeAt() > 'z'.charCodeAt()) {
@@ -48,7 +41,7 @@ function enviar() {
     if (primeApellido.charAt(0) !== primeApellido.charAt(0).toUpperCase() || n3 > 0 || primeApellido == "") {
         papellidoerror = document.getElementById("parrafo1Apellido").innerHTML = "primer apellido incorrecto"
     }
-    //segundo apellido
+    //COMPROBACION SEGUNDO APELLIDO
     let n4 = 0
     for (let j = 1; j < segundoApellido.length; j++) {
         if (segundoApellido[j].charCodeAt() < 'a'.charCodeAt() || segundoApellido[j].charCodeAt() > 'z'.charCodeAt()) {
@@ -64,8 +57,7 @@ function enviar() {
 
 
 
-    //dni
-
+    //COMPROBACION DEL DNI
     for (let j = 0; j < dni.length; j++) {
         if (dni[dni.length - 1].charCodeAt() < 'a'.charCodeAt() || dni[dni.length - 1].charCodeAt() > 'z'.charCodeAt() || dni == "" || (dni.length != 9)) {
             dnitex = document.getElementById("parrafoDni").innerHTML = "dni incorrecto";
@@ -81,17 +73,14 @@ function enviar() {
             dnitex = document.getElementById("parrafoDni").innerHTML = "dni incorrecto por numeros";
         }
     }
-
-    //email
-    let regeX = /^[^ ]+@[^ ]+\.[a-z]{2,3}$/;
+    //COMPROBACION DEL EMAIL
+    let regeX = /^[^ ]+@[^ ]+\.[a-z]{2,3}$/;    //comprobamos con la regex que primero bien, tenga arroba, dominio y acabe bien
     let validEmail = regeX.test(email)
 
     if (!validEmail) {
         salidaemail = document.getElementById("parrafoEmail").innerHTML = "email  incorrecto"
     }
-
-
-    //comprobaremail
+    //COMPROBACION DE LA VALIDACION DEL EMAIL
     let comprobarelmail = confimirEmail
 
     if (comprobarelmail === email) {
@@ -104,7 +93,7 @@ function enviar() {
 
 
 
-    // h. Password: Mínimo 8 caracteres y máximo 20, debe contener al menos una mayúscula, al menos una minúscula, al menos dos números y al menos un símbolo. Se trata de un campo obligatorio.
+    //COMPROBACION DE CONTRASEÑA
     var v1 = 0
     var v2 = 0
     var v3 = 0
@@ -143,10 +132,13 @@ function enviar() {
         salidacomprobarpassword = document.getElementById("parrafoPassword").innerHTML = "contraseña incorrecta"
     }
 
-    //DIRECCION
+    //COMPROBACION DE DIRECCION
+    //                  via - nombre - numero - piso - portal - cp - poblacion -pais
+    //let arradir = /^[^ ]+[/ ]+[a-z]+[, ]+[0-9]{1,3}+[, ]+[0-9]{1,2}+[, ]+[0-9]{5}+[, ]+[a-z]+[, ]+[a-z]$/
+    //let regexDir = arradir.test(direccion)
 
 
-    //INTERESES
+    //COMPROBACION DE INTERESES
     inter();
     function inter() {
         const mercado = "mercado inmobiliario"
@@ -167,6 +159,76 @@ function enviar() {
 
     }
 
+    let mercado = "mercado inmobiliario"
+    let bolsa = "bolsa"
+    let bienes = "bienes estatales"
+    const Array = [mercado, bolsa, bienes]
+    let correctoArray = [];
 
+    let myArray = intereses.split(",", 3);
+    let cmercado = 0
+    let cbolsa = 0
+    let cbienes = 0
+    for (i = 0; i <= Array.length - 1; i++) {
+        if ((myArray[i] == Array[0])) {
+            console.log("mercado ok");
+            correctoArray.push(Array[0]);
+            cmercado = 1
+        }
+
+
+        if (myArray[i] == Array[1]) {
+            console.log("bolsa ok")
+            correctoArray.push(Array[1]);
+            cbolsa = 1
+        }
+
+
+        if (myArray[i] == Array[2]) {
+            console.log("bienes ok")
+            correctoArray.push(Array[2]);
+            cbienes = 1
+
+        }
+
+        console.log(correctoArray)
+    }
+    if (cmercado == 0) {
+        errorIntereses = document.getElementById("parrafoIntereses").innerHTML = "Te faltan poner mercado inmobiliario "
+        inter();
+
+    }
+    if (cbolsa == 0) {
+        errorIntereses = document.getElementById("parrafoIntereses").innerHTML = "Te falta poner bolsa"
+
+    }
+    if (cbienes == 0) {
+        errorIntereses = document.getElementById("parrafoIntereses").innerHTML = "Te falta poner bienes estatales"
+
+    }
+    if (cmercado == 0 && cbolsa == 0) {
+        errorIntereses = document.getElementById("parrafoIntereses").innerHTML = "Te falta poner mercado inmobiliario y bolsa"
+
+    }
+    if (cmercado == 0 && cbienes == 0) {
+        errorIntereses = document.getElementById("parrafoIntereses").innerHTML = "Te falta poner mercado inmobiliario y bienes estatales"
+
+    }
+    if (cbolsa == 0 && cbienes == 0) {
+        errorIntereses = document.getElementById("parrafoIntereses").innerHTML = "Te falta poner bolsa y bienes estatales"
+    }
+    if (cmercado == 0 && cbolsa == 0 && cbienes == 0) {
+        errorIntereses = document.getElementById("parrafoIntereses").innerHTML = "Te falta poner mercado inmobiliario, bolsa y bienes estatales"
+    }
+    if (cmercado == 1 && cbolsa == 1 && cbienes == 1) {
+        errorIntereses = document.getElementById("parrafoIntereses").innerHTML = "";
+
+    }
+}
+
+
+function limpiar() {
+    var borrar = document.getElementById("formu");
+    borrar.reset()
 
 }
