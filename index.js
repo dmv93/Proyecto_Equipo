@@ -139,26 +139,6 @@ function enviar() {
 
 
     //COMPROBACION DE INTERESES
-    inter();
-    function inter() {
-        const mercado = "mercado inmobiliario"
-        const bolsa = "bolsa"
-        const bienes = "bienes estatales"
-        const coma = ","
-        let todos = [mercado, coma, bolsa, coma, bienes]
-        if (intereses == bolsa, coma, mercado, coma, bienes || bolsa, coma, bienes, coma, mercado || bienes, coma, bolsa, coma, mercado || bienes, coma, mercado, coma, bolsa || mercado, coma, bolsa, coma, bienes) {
-            console.log("todo good")
-        } else if (intereses == (mercado + coma + bolsa || mercado + coma + bienes || bolsa + coma + bienes || bolsa + coma + mercado)) {
-            console.log("Hay al menos 2 xaxis")
-        } else if (intereses == (mercado || bolsa || bienes)) {
-            console.log("Solo han puessto")
-        } else {
-            salidaComprobacionIntereses = document.getElementById("parrafoIntereses").innerHTML = "Error al introducir, debe exisitr"
-            inter()
-        }
-
-    }
-
     let mercado = "mercado inmobiliario"
     let bolsa = "bolsa"
     let bienes = "bienes estatales"
