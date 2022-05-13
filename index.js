@@ -74,21 +74,75 @@ function enviar() {
         }
     }
     //COMPROBACION DEL EMAIL
-    let regeX = /^[^ ]+@[^ ]+\.[a-z]{2,3}$/;    //comprobamos con la regex que primero bien, tenga arroba, dominio y acabe bien
-    let validEmail = regeX.test(email)
+    // let regeX = /^[^ ]+@[^ ]+\.[a-z]{2,3}$/;    //comprobamos con la regex que primero bien, tenga arroba, dominio y acabe bien
+    // let validEmail = regeX.test(email)
 
-    if (!validEmail) {
-        salidaemail = document.getElementById("parrafoEmail").innerHTML = "email  incorrecto"
+    // if (!validEmail) {
+    //     salidaemail = document.getElementById("parrafoEmail").innerHTML = "email  incorrecto"
+    // }
+    // //COMPROBACION DE LA VALIDACION DEL EMAIL
+    // let comprobarelmail = confimirEmail
+
+    // if (comprobarelmail === email) {
+    //     console.log("bien")
+    // } else {
+    //     salidacomprobaremail = document.getElementById("parrafoCemail").innerHTML = "comprobacion del email  incorrecto"
+
+    // }
+    
+// //Se trata de un campo obligatorio.
+function esLetra(caracter) {
+    return ((caracter.charCodeAt(0) >= "a".charCodeAt(0) && caracter.charCodeAt(0) <= "z".charCodeAt(0)) || (caracter.charCodeAt(0) >= "A".charCodeAt(0) && caracter.charCodeAt(0) <= "Z".charCodeAt(0)));
+}
+function esNumero(caracter) {
+    return (caracter.charCodeAt(0) >= "0".charCodeAt(0) && caracter.charCodeAt(0) <= "9".charCodeAt(0));
+}
+function guionPunto(caracter) {
+    return (caracter == "_" || caracter == ".");
+}
+function emailValido(email) { //Lo que hay encima del @
+    let cont = 0
+    for (let i = 0; i < email.length; i++) {
+        if (esLetra(email.charAt(i)) || guionPunto(email.charAt(i))) {
+            cont++
+        }
     }
-    //COMPROBACION DE LA VALIDACION DEL EMAIL
-    let comprobarelmail = confimirEmail
-
-    if (comprobarelmail === email) {
-        console.log("bien")
-    } else {
-        salidacomprobaremail = document.getElementById("parrafoCemail").innerHTML = "comprobacion del email  incorrecto"
-
+return cont == email.length
+}
+function arrobasPuntos(email, caracter) {
+    let cont = 0
+    for (let i = 0; i < email.length; i++) {
+        if (email[i]== caracter) {
+            cont++
+        }
     }
+    return email[0] != caracter && cont == 1 && email[email.length-1] != caracter
+}
+// function soloLetra(cadena){
+//     let cont = 0;
+//     for (const caracter of cadena) {
+//         if(esLetra(caracter)){
+//             cont++
+//         }
+//     }
+//     return cont == cadena.length
+// }
+function validarEmailTotal (emailCompleto){
+    if(arrobasPuntos(emailCompleto, "@")){//De momento el email es válido, ya que sólo hay una @ y no está al principio ni al final
+        let partes = email.split('@');//Ejemplo: davinia_rosa.hernandez@a.com => ['davinia_rosa.hernandez', 'a.com']
+        if(emailValido(partes[0])){//Lo que hay a la izquierda de la @ es válido
+            if(arrobasPuntos(partes[1], '.')){//Lo que está a la derecha de la  @ tiene un punto que no está ni al principio ni al final
+                let partes1 = partes[1].split('.');
+            }else{
+                alert('Tu email no es válido.')
+            }
+        }else{
+            alert('Tu email no es válido.')
+        }
+    }else{
+        alert('Tu email no es válido.')
+    }
+}
 
 
 
